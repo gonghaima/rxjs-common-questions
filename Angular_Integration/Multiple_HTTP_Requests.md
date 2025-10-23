@@ -1,6 +1,8 @@
 # Multiple HTTP Requests
 
 - **forkJoin:** Run requests in parallel, emit when all complete (like Promise.all).
+  - *Use case:* Fetch user profile and orders together, only when both are done.
+  - *Behavior:* Only emits once, when all inner observables complete. If any observable never completes, forkJoin will never emit.
 ```typescript
 import { forkJoin } from 'rxjs';
 
@@ -8,19 +10,21 @@ forkJoin([
   http.get('/api/user'),
   http.get('/api/orders')
 ]).subscribe(([user, orders]) => {
-  // Both requests done
+  // Both requests done, show dashboard
 });
 ```
 
 - **combineLatest:** Combine latest values from multiple observables, emit whenever any changes (after all have emitted at least once).
+  - *Use case:* React to changes in user and settings, update UI whenever either changes.
+  - *Behavior:* Emits every time any inner observable emits, after all have emitted at least once. Useful for live data streams.
 ```typescript
 import { combineLatest } from 'rxjs';
 
 combineLatest([
   http.get('/api/user'),
-  http.get('/api/settings')
+  settings$.pipe(startWith({ theme: 'light' }))
 ]).subscribe(([user, settings]) => {
-  // React to latest user or settings
+  // Update UI with latest user or settings
 });
 ```
 
