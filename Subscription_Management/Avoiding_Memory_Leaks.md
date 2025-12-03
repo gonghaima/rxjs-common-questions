@@ -1,13 +1,17 @@
 # Avoiding Memory Leaks
 
 - **Use async pipe in templates**
+
   - Angular automatically unsubscribes when the component is destroyed.
+
   ```html
   <div *ngIf="data$ | async as data">{{ data }}</div>
   ```
 
 - **Use takeUntil pattern**
+
   - Unsubscribe when a notifier emits (e.g., on component destroy).
+
   ```typescript
   private destroy$ = new Subject<void>();
   ngOnInit() {
@@ -20,7 +24,9 @@
   ```
 
 - **Use Subscription.unsubscribe()**
+
   - Manually unsubscribe in ngOnDestroy.
+
   ```typescript
   private sub: Subscription;
   ngOnInit() {

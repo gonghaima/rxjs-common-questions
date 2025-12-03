@@ -31,7 +31,7 @@ clicks$.subscribe(() => {
 const buffered$ = clicks$.pipe(
   buffer(interval(1000)) // Collect clicks for 1 second, then emit as array
 );
-buffered$.subscribe(clickArray => {
+buffered$.subscribe((clickArray) => {
   console.log('Clicks in last second:', clickArray.length);
 });
 
@@ -39,7 +39,7 @@ buffered$.subscribe(clickArray => {
 const bufferedByThrottle$ = clicks$.pipe(
   buffer(clicks$.pipe(throttleTime(2000))) // Emit buffered clicks every 2 seconds
 );
-bufferedByThrottle$.subscribe(clickArray => {
+bufferedByThrottle$.subscribe((clickArray) => {
   console.log('Buffered clicks:', clickArray.length);
 });
 ```

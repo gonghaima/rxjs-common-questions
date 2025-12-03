@@ -1,7 +1,9 @@
 # Consequences of Not Unsubscribing
 
 - **Memory leaks:**
+
   - Subscriptions remain active after a component is destroyed, causing unused resources to accumulate and slow down the app over time.
+
   ```typescript
   // Example: Not unsubscribing
   ngOnInit() {
@@ -24,4 +26,5 @@
   ```
 
 **Tip:**
+
 - Always unsubscribe from observables in Angular to keep your app efficient and bug-free.
